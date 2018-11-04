@@ -13,3 +13,21 @@ executeProcedure(for: "of") {
         print($0)
     })
 }
+
+executeProcedure(for: "from") {
+    let disposeBag = DisposeBag()
+
+//    let subscribed = Observable.from([10, 20,30])
+//        .subscribe(onNext: {
+//            print($0)
+//        })
+//    subscribed.disposed(by: disposeBag)
+    
+    Observable.from([1, 2, 3])
+        .subscribe(
+            onNext: { print($0) },
+            onCompleted: { print("Completed the events") },
+            onDisposed: { print("Sequence terminated hence Disposed") }
+        )
+        .disposed(by: disposeBag)
+}
