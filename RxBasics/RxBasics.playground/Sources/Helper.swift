@@ -2,6 +2,6 @@ import UIKit
 import RxSwift
 
 public func executeProcedure(for description: String, procedure: () -> Void){
-    print("Procedure executed for:", description)
+    print("\nProcedure executed for:", description)
     procedure()
 }

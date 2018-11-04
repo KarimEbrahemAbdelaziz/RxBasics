@@ -1,10 +1,15 @@
 import RxSwift
 
-executeProcedure(for: "just"){
-
+executeProcedure(for: "just") {
     let observable = Observable.just("Example of Just Operator!")
     observable.subscribe({ (event: Event<String>) in
         print(event)
     })
-    
+}
+
+executeProcedure(for: "of") {
+    let observable = Observable.of(10, 20, 30)
+    observable.subscribe({
+        print($0)
+    })
 }
