@@ -71,3 +71,23 @@ executeProcedure(for: "ReplaySubject") {
         })
         .disposed(by: disposeBag)
 }
+
+executeProcedure(for: "Variable") {
+    let disposeBag = DisposeBag()
+    
+    let variable = Variable(1)
+    
+    variable.asObservable()
+        .subscribe {
+            print($0)
+        }
+        .disposed(by: disposeBag)
+    
+    variable.value = 2
+    
+    variable.asObservable()
+        .subscribe {
+            print("Second Variable Subsriber: \($0)")
+        }
+        .disposed(by: disposeBag)
+}
