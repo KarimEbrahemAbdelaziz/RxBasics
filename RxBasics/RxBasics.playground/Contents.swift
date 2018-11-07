@@ -31,3 +31,16 @@ executeProcedure(for: "from") {
         )
         .disposed(by: disposeBag)
 }
+
+executeProcedure(for: "error") {
+    enum CustomError: Error{
+        case defaultError
+    }
+
+    let disposeBag = DisposeBag()
+    Observable<Void>.error(CustomError.defaultError)
+        .subscribe(
+            onError: {print($0)
+        })
+    .disposed(by: disposeBag)
+}
