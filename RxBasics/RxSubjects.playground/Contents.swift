@@ -26,3 +26,22 @@ executeProcedure(for: "PublishSubject"){
     pubSubject.onNext("Forth Event")
     oldSubscriber.dispose()
 }
+
+executeProcedure(for: "BehaviorSubject"){
+    let disposeBag = DisposeBag()
+    
+    let behSubject = BehaviorSubject(value: "Test")
+    
+    let initialSubscripton = behSubject.subscribe(onNext: {
+        print("Line number is \(#line) and value is" , $0)
+    })
+    
+    behSubject.onNext("Second Event")
+    
+    let subsequentSubsription = behSubject.subscribe(onNext: {
+        print("Line number is \(#line) and value is" , $0)
+    })
+    
+    initialSubscripton.disposed(by: disposeBag)
+    subsequentSubsription.disposed(by: disposeBag)
+}
