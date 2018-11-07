@@ -45,3 +45,29 @@ executeProcedure(for: "BehaviorSubject"){
     initialSubscripton.disposed(by: disposeBag)
     subsequentSubsription.disposed(by: disposeBag)
 }
+
+executeProcedure(for: "ReplaySubject") {
+    let disposeBag = DisposeBag()
+
+    let repSubject = ReplaySubject<String>.create(bufferSize: 3)
+    
+    repSubject.onNext("First")
+    repSubject.onNext("Second")
+    repSubject.onNext("Third")
+    repSubject.onNext("Forth")
+    
+    repSubject
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+    
+    repSubject.onNext("Fifth")
+    repSubject.onNext("Sixth")
+    
+    repSubject
+        .subscribe(onNext: {
+            print("New Reply Subsriper: \($0)")
+        })
+        .disposed(by: disposeBag)
+}
