@@ -1,5 +1,7 @@
 import RxSwift
 
+//MARK:- Transforming Operators
+
 executeProcedure(for: "Map") {
     
     Observable.of(1, 2, 3)
@@ -75,5 +77,23 @@ executeProcedure(for: "Buffer") {
             print(type(of: $0))
         })
         .dispose()
+    
+}
+
+//MARK:- Filtering Operators
+
+executeProcedure(for: "Filter") {
+    let disposeBag = DisposeBag()
+    
+    let numbers = Observable.generate(initialState: 1, condition: { $0 < 101 }, iterate: { $0 + 1})
+    numbers
+        .filter {
+            $0.isPrime()
+        }
+        .toArray()
+        .subscribe({
+            print( $0 )
+        })
+        .disposed(by: disposeBag)
     
 }
