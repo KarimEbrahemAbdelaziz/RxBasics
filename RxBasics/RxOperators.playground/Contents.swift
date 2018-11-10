@@ -65,3 +65,15 @@ executeProcedure(for: "Reduce") {
         .dispose()
 
 }
+
+executeProcedure(for: "Buffer") {
+    
+    Observable.of(10, 20, 30, 40, 50, 60)
+        .buffer(timeSpan: 0.0, count: 3, scheduler: MainScheduler.instance)
+        .subscribe(onNext: {
+            print($0)
+            print(type(of: $0))
+        })
+        .dispose()
+    
+}
