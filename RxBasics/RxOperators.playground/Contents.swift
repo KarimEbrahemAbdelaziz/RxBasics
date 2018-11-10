@@ -54,3 +54,14 @@ executeProcedure(for: "Scan") {
         .dispose()
     
 }
+
+executeProcedure(for: "Reduce") {
+    
+    Observable.of(10, 20, 30)
+        .reduce(0, accumulator: +)
+        .subscribe(onNext: {
+            print($0)
+        })
+        .dispose()
+
+}
