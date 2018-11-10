@@ -41,3 +41,16 @@ executeProcedure(for: "FlatMap and FlatMapLatest") {
     gemma.playerScore.value = 21
     
 }
+
+executeProcedure(for: "Scan") {
+    
+    Observable.of(10, 20, 30)
+        .scan(2, accumulator: { (addition, value) -> Int in
+            return value + addition
+        })
+        .subscribe(onNext: {
+            print($0)
+        })
+        .dispose()
+    
+}
