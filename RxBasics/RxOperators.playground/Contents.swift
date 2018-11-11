@@ -135,3 +135,17 @@ executeProcedure(for: "TakeWhile") {
     
 }
 
+//MARK:- Advanced Operators
+
+executeProcedure(for: "startWith") {
+    let disposeBag = DisposeBag()
+
+    Observable.of("String 2", "String 3", "String 4")
+        .startWith("String 0", "String 1")
+        .startWith("String -1")
+        .startWith("String -2")
+        .subscribe(onNext:{
+            print($0)
+        })
+        .disposed(by: disposeBag)
+}
