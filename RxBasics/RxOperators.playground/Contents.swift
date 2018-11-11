@@ -97,3 +97,24 @@ executeProcedure(for: "Filter") {
         .disposed(by: disposeBag)
     
 }
+
+executeProcedure(for: "DistinctUntil") {
+    let disposeBag = DisposeBag()
+    
+    let stringToSearch = Variable("")
+    stringToSearch.asObservable()
+        .map({
+            $0.lowercased()
+        })
+        .distinctUntilChanged()
+        .subscribe({
+            print($0)
+        })
+        .disposed(by: disposeBag)
+    
+    stringToSearch.value = "TINTIN"
+    stringToSearch.value = "tintin"
+    stringToSearch.value = "noDDy"
+    stringToSearch.value = "TINTIN"
+    
+}
