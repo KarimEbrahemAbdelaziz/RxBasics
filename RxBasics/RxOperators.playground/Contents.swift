@@ -173,3 +173,43 @@ executeProcedure(for: "Merge") {
     pubSubject2.onNext("Second Element from Subject 2")
     
 }
+
+executeProcedure(for: "zip") {
+
+    let disposeBag = DisposeBag()
+
+    let intPubSubject1 = PublishSubject<Int>()
+    let stringPubSubject1 = PublishSubject<String>()
+    let intPubSubject2 = PublishSubject<Int>()
+    let stringPubSubject2 = PublishSubject<String>()
+    
+    Observable
+        .zip(intPubSubject1, stringPubSubject1,intPubSubject2, stringPubSubject2) { intSub1, strSub1, intSub2, stringSub2 in
+            "\(intSub1) : \(strSub1) AND \(intSub2) : \(stringSub2)"
+        }
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+    
+    stringPubSubject1.onNext("is the first String element on stringPubSubject1")
+    
+    stringPubSubject1.onNext("is the second String element on stringPubSubject1")
+    
+    stringPubSubject2.onNext("is the first String element on stringPubSubject2")
+    
+    stringPubSubject2.onNext("is the second String element on stringPubSubject2")
+    
+    intPubSubject1.onNext(1)
+    
+    intPubSubject1.onNext(2)
+    
+    intPubSubject2.onNext(3)
+    
+    intPubSubject2.onNext(4)
+    intPubSubject1.onNext(5)
+    stringPubSubject1.onNext("is the third String element on stringPubSubject1")
+    intPubSubject2.onNext(3)
+    stringPubSubject2.onNext("is the third String element on stringPubSubject2")
+    
+}
