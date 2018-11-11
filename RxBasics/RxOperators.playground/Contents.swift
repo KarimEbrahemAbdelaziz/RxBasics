@@ -118,3 +118,20 @@ executeProcedure(for: "DistinctUntil") {
     stringToSearch.value = "TINTIN"
     
 }
+
+executeProcedure(for: "TakeWhile") {
+    let disposeBag = DisposeBag()
+
+    let integers = Observable.of(10, 20, 30, 40, 30, 20, 10)
+    
+    integers
+        .takeWhile({
+            $0 < 40
+        })
+        .subscribe(onNext: {
+            print( $0 )
+        })
+        .disposed(by: disposeBag)
+    
+}
+
