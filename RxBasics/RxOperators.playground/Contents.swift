@@ -149,3 +149,27 @@ executeProcedure(for: "startWith") {
         })
         .disposed(by: disposeBag)
 }
+
+executeProcedure(for: "Merge") {
+    let disposeBag = DisposeBag()
+    
+    let pubSubject1 = PublishSubject<String>()
+    let pubSubject2 = PublishSubject<String>()
+    let pubSubject3 = PublishSubject<String>()
+    
+    Observable.of(pubSubject1, pubSubject2, pubSubject3)
+        .merge()
+        .subscribe(onNext:{
+            print($0)
+        })
+        .disposed(by: disposeBag)
+    
+    pubSubject1.onNext("First Element from Subject 1")
+    pubSubject2.onNext("First Element from Subject 2")
+    pubSubject3.onNext("First Element from  Subject 3")
+    
+    pubSubject1.onNext("Second Element from Subject 1")
+    pubSubject3.onNext("Second Element from Subject 3")
+    pubSubject2.onNext("Second Element from Subject 2")
+    
+}
