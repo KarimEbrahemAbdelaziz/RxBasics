@@ -213,3 +213,39 @@ executeProcedure(for: "zip") {
     stringPubSubject2.onNext("is the third String element on stringPubSubject2")
     
 }
+
+//MARK:- Side Effects
+
+executeProcedure(for: "doOn") {
+    let disposeBag = DisposeBag()
+    
+    let fehrenhiteIntDegree = PublishSubject<Int>()
+    
+    fehrenhiteIntDegree
+        .do(onNext: { (value) in
+            print(value * value)
+        },
+            onError: { (error) in
+                print("onError")
+        },
+            onCompleted: {
+                print("onCompleted")
+        },
+            onSubscribe: {
+                print("Will subscribe")
+        },
+            onSubscribed: {
+                print("Did subscribed")
+        },
+            onDispose: {
+                print("onDispose")
+        })
+        .subscribe(onNext: {
+            print($0)
+        })
+    .disposed(by: disposeBag)
+    
+    fehrenhiteIntDegree.onNext(10)
+    fehrenhiteIntDegree.onCompleted()
+    
+}
